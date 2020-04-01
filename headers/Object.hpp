@@ -1,0 +1,5 @@
+#ifndef O
+class Object{
+
+
+};
