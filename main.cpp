@@ -59,7 +59,7 @@ int main()
                 int h1 = rand() % 351 + 50;
                 int h2 = rand() % 351 + 50;
                 //Get random numbers for objects and control them not to be very small nor big
-                while(h1 + h2 >= 420 || h1 + h2 <= 410 || abs(obj[obj.size()-1][0].des.y - h1) > 225 ){
+                while(h1 + h2 >= 415 || h1 + h2 <= 395 || abs(obj[obj.size()-1][0].des.y - h1) > 225 ){
                     h1 = rand() % 351 + 50;
                     h2 = rand() % 351 + 50;
                 }
