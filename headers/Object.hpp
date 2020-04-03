@@ -11,10 +11,10 @@ class Object{
     public:
     sf::RectangleShape object_rect;
     //sf::Sprite object_sprite;
-    vector<vector<Object>> obj;
     Cordinate des;
 
-    Object();
+    Object(float,bool);
+    //void add_object(float,float);
     void operator + (float);
     ~Object();
 };
