@@ -58,7 +58,7 @@ int main()
                 int h1 = rand() % 351 + 50;
                 int h2 = rand() % 351 + 50;
                 //Get random numbers for objects and control them not to be very small nor big
-                while(h1 + h2 >= 425 || h1 + h2 <= 415 || abs(obj[obj.size()-1][0].des.y - h1) > 225 ){
+                while(h1 + h2 >= 420 || h1 + h2 <= 410 || abs(obj[obj.size()-1][0].des.y - h1) > 225 ){
                     h1 = rand() % 351 + 50;
                     h2 = rand() % 351 + 50;
                     std::cout<<h1<<" "<<h2<<std::endl;
@@ -157,7 +157,7 @@ int main()
                 gameover = true;
             }
         }
-        if(gameover == true){
+        if(bird.score < 20){
             sound.setBuffer(lose);
             sound.play();
             //Set Gameover and score text
@@ -173,10 +173,25 @@ int main()
             window.draw(score);
             window.draw(text);
             window.display();
-            int x;
-            std::cin>>x;
+            std::cin.get();
+        
         }else{
-
+            sound.setBuffer(lose);
+            sound.play();
+            //Set Gameover and score text
+            text.setString("YOU WIN!");
+            text.setStyle(sf::Text::Bold);
+            text.setColor(sf::Color::Yellow);
+            text.setCharacterSize(200);
+            text.setPosition(100,10);
+            score.setString("Score: " + bird.score_return());
+            score.setColor(sf::Color::Blue);
+            score.setCharacterSize(150);
+            score.setPosition(200,200);
+            window.draw(score);
+            window.draw(text);
+            window.display();
+            std::cin.get();
         }
     //return 0;
 }
