@@ -20,6 +20,4 @@
         des.x += x_pos;
         object_rect.setPosition(des.x,des.y);
     }
-    Object::~Object(){
-        std::cout<<"Erased"<<std::endl;
-    }
+    Object::~Object(){}
