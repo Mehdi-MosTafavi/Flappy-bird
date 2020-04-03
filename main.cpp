@@ -15,6 +15,7 @@ using std::rand;
 int main()
 {
     //Initializing and opening window and first time run
+  Start:  sf::Event event;
     vector<vector<Object>> obj;
     vector<Object> obj_t;
     obj_t.push_back(Object(float(rand() % 250 + 50),true));
@@ -61,7 +62,6 @@ int main()
                 while(h1 + h2 >= 420 || h1 + h2 <= 410 || abs(obj[obj.size()-1][0].des.y - h1) > 225 ){
                     h1 = rand() % 351 + 50;
                     h2 = rand() % 351 + 50;
-                    std::cout<<h1<<" "<<h2<<std::endl;
                 }
                 
                 obj_t.push_back(Object(float(h1),true));
@@ -83,7 +83,6 @@ int main()
             window.draw(obj[i][1].object_rect);
             //Check if bird hits the objects or not and play sound and make main boolean false
             if(obj[i][0].object_rect.getGlobalBounds().intersects(bird.bird_sprite.getGlobalBounds()) || obj[i][1].object_rect.getGlobalBounds().intersects(bird.bird_sprite.getGlobalBounds())){
-                    std::cout<<"Test"<<std::endl;
                     sound.setBuffer(hit);
                     sound.play();
                     running = false;
@@ -109,7 +108,6 @@ int main()
             obj[i][1] + (-0.02);
             obj[i][0] + (-0.02);
             if(obj[i][0].object_rect.getGlobalBounds().intersects(bird.bird_sprite.getGlobalBounds()) || obj[i][1].object_rect.getGlobalBounds().intersects(bird.bird_sprite.getGlobalBounds())){
-                    std::cout<<"Test"<<std::endl;
                     sound.setBuffer(hit);
                     sound.play();
                     running = false;
@@ -125,7 +123,6 @@ int main()
         }
         window.display();
         //Handling events like closing the game or pessing space
-        sf::Event event;
         while (window.pollEvent(event))
         {
             switch(event.type){
@@ -173,7 +170,6 @@ int main()
             window.draw(score);
             window.draw(text);
             window.display();
-            std::cin.get();
         
         }else{
             sound.setBuffer(lose);
@@ -191,7 +187,45 @@ int main()
             window.draw(score);
             window.draw(text);
             window.display();
-            std::cin.get();
+        }
+        running = true;
+        //End game menu
+        sf::Texture exit;
+        exit.loadFromFile("data/exit.png");
+        sf::Sprite e_sprite;
+        e_sprite.setTexture(exit);
+        e_sprite.setPosition(200,400);
+        sf::Texture again;
+        again.loadFromFile("data/replay.png");
+        sf::Sprite a_sprite;
+        a_sprite.setTexture(again);
+        a_sprite.setPosition(400,400);
+        window.draw(e_sprite);
+        window.draw(a_sprite);
+        window.display();
+        
+        while(running){
+                if(event.type == sf::Event::Closed){
+                    window.close();
+                    return 0;
+                    break;
+                }
+            
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+        sf::Vector2f mouse = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        sf::FloatRect e_bounds = e_sprite.getGlobalBounds();
+        sf::FloatRect again_bound = a_sprite.getGlobalBounds();
+    //Chech if player press exit or playagain button
+    if (e_bounds.contains(mouse))
+    {
+        window.close();
+        return 0;
+    }
+    if(again_bound.contains(mouse)){
+        running = true;
+        goto Start;
+    }
+    }
         }
     //return 0;
 }
